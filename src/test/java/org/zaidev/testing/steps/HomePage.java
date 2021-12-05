@@ -12,9 +12,6 @@ import java.util.Optional;
 
 public class HomePage {
     private WebDriver webDriver;
-    private static final String PAGE_URL = "http://automationpractice.com";
-
-    private static final By CONTACT_ERROR = By.xpath("//*[@id=\"center_column\"]/div/ol/li");
 
     @FindBy(className = "login")
     private WebElement loginButton;
@@ -25,23 +22,20 @@ public class HomePage {
     @FindBy(id = "submitMessage")
     private WebElement sendMessageButton;
 
+    @FindBy(id = "search_query_top")
+    private WebElement searchBar;
+
     public HomePage(WebDriver driver) {
         this.webDriver = driver;
     }
 
     public void openPage() {
-        webDriver.get(PAGE_URL);
+        webDriver.get(Constants.PAGE_URL);
         PageFactory.initElements(webDriver,this);
     }
 
-    public void clickLoginButton(){
-        loginButton.click();
-    }
-    public void clickSendMessageButton(){
-        sendMessageButton.click();
-    }
-    public void clickContactUsButton(){
-        contactUsButton.click();
+    public void searchBarSubmit(){
+        searchBar.submit();
     }
 
 
@@ -63,29 +57,14 @@ public class HomePage {
     }
 
     public WebElement getField(By locator) {
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         return webDriver.findElement(locator);
     }
     public void fillDropDown(String field, String value) {
-        getDropDown(By.id(field)).sendKeys(value);
-    }
-
-    public WebElement getDropDown(By locator) {
-        return webDriver.findElement(locator);
+        getField(By.id(field)).sendKeys(value);
     }
 
 
-
-    public Optional<String> getContactError() {
-        return getErrorMessage(CONTACT_ERROR);
-    }
-
-
-    private Optional<WebElement> getError(By errorLocator) {
+    public Optional<WebElement> getError(By errorLocator) {
         List<WebElement> elements = webDriver.findElements(errorLocator);
         if (elements.size() > 0) {
             return Optional.of(elements.get(0));
@@ -93,7 +72,7 @@ public class HomePage {
             return Optional.empty();
         }
     }
-    private Optional<String> getErrorMessage(By errorLocator) {
+    public Optional<String> getErrorMessage(By errorLocator) {
         Optional<WebElement> error = getError(errorLocator);
         if (error.isPresent()) {
             WebElement errorElement = error.get();
@@ -101,5 +80,9 @@ public class HomePage {
         } else {
             return Optional.empty();
         }
+    }
+
+    public WebElement getSearchBar() {
+        return searchBar;
     }
 }

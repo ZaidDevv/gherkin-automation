@@ -8,7 +8,9 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.fail;
 
@@ -18,39 +20,43 @@ public class ContactUsStepDefs extends AbstractStepDefs{
         homePage.getContactUsButton().click();
     }
 
-    @Given("{string} is filled")
-    public void headingIsFilled(String str) {
-        Select drpdown = new Select(homePage.getDropDown(By.id("id_contact")));
-        if (drpdown.getOptions().contains(homePage.getDropDown(By.id("id_contact")))) {
+
+    @Given("the Subject heading is filled with {string}")
+    public void theSubjectHeadingIsFilledWithSubjectHeading(String str) {
+        Select drpdown = new Select(homePage.getField(By.id("id_contact")));
+        List<String> options = drpdown.getOptions().stream().map(o -> o.getText()).collect(Collectors.toList());
+        if (options.contains(str)) {
             drpdown.selectByVisibleText(str);
-        } else {
+        }
+        else{
             drpdown.selectByIndex(0);
         }
     }
 
-    @And("the {string} is filled")
-    public void theEmailIsFilled(String str) {
+    @And("the email is filled with {string}")
+    public void theEmailIsFilledWithEMail(String str) {
         homePage.fillField("email",str);
     }
 
-    @And("the {string} is also filled")
-    public void theMessageIsFilled(String str) {
+    @And("the message is filled with {string}")
+    public void theMessageIsFilledWithMessage(String str) {
         homePage.fillField("message",str);
     }
-
 
     @When("the form is submitted")
     public void theFormIsSubmitted() {
         homePage.getSendMessageButton().click();
     }
 
-    @Then("this {string} is shown")
-    public void thisErrorsIsShown(String str) {
-        Optional<String> errorMessage = homePage.getContactError();
-        if (errorMessage.isPresent()) {
-            Assert.assertEquals(str, errorMessage.get());
-        } else {
-            fail();
-        }
-    }
+
+//    @Then("this {string} is shown")
+//    public void thisErrorsIsShown(String str) {
+//        homepage.get
+//        Optional<String> errorMessage = homePage.getContactError();
+//        if (errorMessage.isPresent()) {
+//            Assert.assertEquals(str, errorMessage.get());
+//        } else {
+//            fail();
+//        }
+//    }
 }
