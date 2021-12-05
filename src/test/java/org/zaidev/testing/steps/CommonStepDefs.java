@@ -1,5 +1,6 @@
 package org.zaidev.testing.steps;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import org.openqa.selenium.By;
@@ -14,6 +15,7 @@ public class CommonStepDefs extends AbstractStepDefs{
     @Given("The home page is opened")
     public void theHomePageIsOpened() {
             homePage.openPage();
+            assertEquals("My Store",driver.getTitle());
         }
 
     @Then("this {string} is shown")
@@ -25,6 +27,11 @@ public class CommonStepDefs extends AbstractStepDefs{
         } else {
             fail();
         }
+    }
+
+    @And("the email is filled with {string}")
+    public void theEmailIsFilledWithEMail(String str) {
+        homePage.fillField("email",str);
     }
 
     @Then("the output message {string} is shown")

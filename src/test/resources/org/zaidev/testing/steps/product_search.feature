@@ -27,9 +27,9 @@ Feature: Contact Us Form
     When the search button is clicked
     Then the output message '<Output Message>' is shown
     Examples:
-      | Product                                                                 | Output Message                        |
-      | 0                                                                       | Please enter a search keyword         |
-      | test                                                                    | No results were found for your search |
+      | Product                                                                                                       | Output Message                        |
+      | 0                                                                                                             | Please enter a search keyword         |
+      |                                                                                                               | Please enter a search keyword         |
       | ababababababababababababababababaababababababababababababababababababababababbabababababababababababababababa | No results were found for your search |
-      | Non-english شاورما                                                      | No results were found for your search |
+      | Non-english شاورما                                                                                            | No results were found for your search |
 

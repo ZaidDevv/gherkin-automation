@@ -4,6 +4,14 @@ Feature: Contact Us Form
     Given The home page is opened
     And the Contact Us form link is clicked
 
+
+  Scenario: Valid Contact-us form data
+    Given the Subject heading is filled with 'Webmaster'
+    And the email is filled with 'test@hotmail.com'
+    And the message is filled with 'test123'
+    When the form is submitted
+    Then the output message 'Your message has been successfully sent to our team.' is shown
+
   Scenario Outline: Invalid Contact-us form data
     Given the Subject heading is filled with '<Subject Heading>'
     And the email is filled with '<e-mail>'
@@ -16,16 +24,3 @@ Feature: Contact Us Form
       | Webmaster        | invalid.email.com       | test    | Invalid email address.                          |
       | invalid          | automaiontest@gmail.com | test123 | Please select a subject from the list provided. |
       | Customer service | .email@example.com      | test    | Invalid email address.                          |
-
-  Scenario Outline: Valid Contact-us form data
-    Given the Subject heading is filled with '<Subject Heading>'
-    And the email is filled with '<e-mail>'
-    And the message is filled with '<message>'
-    When the form is submitted
-    Then the output message '<outputMessage>' is shown
-    Examples:
-      | Subject Heading  | e-mail                  | message | outputMessage                                        |
-      | Webmaster        | test@hotmail.com        | !@#$%   | Your message has been successfully sent to our team. |
-      | Webmaster        | valid@email.com         | مرحبا   | Your message has been successfully sent to our team. |
-      | Customer service | automaiontest@gmail.com | test123 | Your message has been successfully sent to our team. |
-      | Customer service | email@111.222.333.44444 | 0       | Your message has been successfully sent to our team. |

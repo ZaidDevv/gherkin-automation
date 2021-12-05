@@ -33,10 +33,6 @@ public class ContactUsStepDefs extends AbstractStepDefs{
         }
     }
 
-    @And("the email is filled with {string}")
-    public void theEmailIsFilledWithEMail(String str) {
-        homePage.fillField("email",str);
-    }
 
     @And("the message is filled with {string}")
     public void theMessageIsFilledWithMessage(String str) {
