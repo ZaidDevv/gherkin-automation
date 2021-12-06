@@ -44,15 +44,4 @@ public class ContactUsStepDefs extends AbstractStepDefs{
         homePage.getSendMessageButton().click();
     }
 
-
-//    @Then("this {string} is shown")
-//    public void thisErrorsIsShown(String str) {
-//        homepage.get
-//        Optional<String> errorMessage = homePage.getContactError();
-//        if (errorMessage.isPresent()) {
-//            Assert.assertEquals(str, errorMessage.get());
-//        } else {
-//            fail();
-//        }
-//    }
 }
